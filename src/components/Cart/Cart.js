@@ -16,12 +16,31 @@ const Cart = (props) => {
     return item; // Return the item in the map function
   });
 
+  const increaseItemQt = (item) => {
+    ctxCartAdd.addItem({ ...item, quantity: 1 }); // Add one more of the item
+  };
+
+  const decreaseItemQt = (item) => {
+    const existingItem = ctxCartAdd.items.find((cartItem) => cartItem.id === item.id);
+
+    if (existingItem.quantity === 1) {
+      ctxCartAdd.removeItem(item.id); // Remove the item from the cart
+    } else {
+      ctxCartAdd.addItem({ ...item, quantity: -1 }); // Decrease the quantity by one
+    }
+  };
+
   const cartItems = (
     <ul className={classes['cart-items']}>
       {Object.values(groupedItems).map((item) => (
-        <li key={item.name}>
-          Name: {item.name}, Quantity: {item.totalQuantity}, Price: {item.price}
-        </li>
+        <div key={item.name}>
+          <li>
+            <h2 className={classes.name}>{item.name}</h2>
+            Quantity: {item.totalQuantity}, Price: {item.price}
+            <button onClick={() => increaseItemQt(item)}>+</button>
+            <button onClick={() => decreaseItemQt(item)}>-</button>
+          </li>
+        </div>
       ))}
     </ul>
   );

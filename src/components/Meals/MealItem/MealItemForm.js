@@ -10,13 +10,13 @@ const addItemCart = (event) => {
   //update the cortcontext.items
   const quantity = document.getElementById('amount_' + props.id).value
   cartCtx.addItem({...props.item, quantity : quantity})
-  console.log(props.item)
+  // console.log(props.item)
 }
   
   return (
     <form className={classes.form}>
       {console.log(cartCtx.items)}
-        <Input label = 'Amount' input = {{
+        <Input label = 'Qty' input = {{
             id : 'amount_' + props.id,
             type : 'number',
             min : '1',
@@ -26,6 +26,7 @@ const addItemCart = (event) => {
 
         }}/>
         <button onClick={addItemCart} >+ Add</button>
+
     </form>
   )
 }
